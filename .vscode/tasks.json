@@ -1,0 +1,33 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "generate",
+            "type": "shell",
+            "command": "cmake -B build",
+            "problemMatcher": []
+        },
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "cmake --build build",
+            "problemMatcher": []
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "rm -rf bin lib build"
+        },
+        {
+            "label": "clean solution build",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "clean",
+                "generate",
+                "build"
+            ]
+        }
+    ]
+}
