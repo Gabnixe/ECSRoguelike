@@ -6,4 +6,4 @@
 using Entity = std::uint32_t;
 
 //Max number of entities
-const int MAX_ENTITIES = 5000;
+const int MAX_ENTITIES = 10000;
