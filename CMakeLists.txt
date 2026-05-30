@@ -26,6 +26,16 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(raylib)
 
+FetchContent_Declare(
+	entt
+	GIT_REPOSITORY https://github.com/skypjack/entt.git
+	GIT_TAG main
+	GIT_SHALLOW TRUE
+	GIT_PROGRESS TRUE
+)
+FetchContent_MakeAvailable(entt)
+
+
 #Get all source file in /scr
 file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/scr/*.cpp") # Define PROJECT_SOURCES as a list of all source files
 set(PROJECT_INCLUDE "${CMAKE_CURRENT_LIST_DIR}/scr/") # Define PROJECT_INCLUDE to be the path to the include directory of the project
@@ -35,3 +45,4 @@ add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_INCLUDE})
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
+target_link_libraries(${PROJECT_NAME} PRIVATE EnTT::EnTT)

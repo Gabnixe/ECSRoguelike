@@ -9,6 +9,8 @@
 
 #include "core/ECS.hpp"
 
+#include <entt/entt.hpp>
+
 #include "systems/RenderingSystem.hpp"
 #include "systems/MoveSystem.hpp"
 
@@ -28,6 +30,47 @@ void Draw()
     ClearBackground(RAYWHITE);
 }
 
+struct position {
+    float x;
+    float y;
+};
+
+struct velocity {
+    float dx;
+    float dy;
+};
+
+struct size {
+    float radius;
+};
+
+struct color {
+    Color color;
+};
+
+void ECSUpdate(entt::registry &registry){
+    Update();
+
+    auto view = registry.view<position, const velocity>();
+
+    // use a callback
+    view.each([](auto &pos, const auto &vel) 
+    {
+        pos.x += vel.dx * GetFrameTime();
+        pos.y += vel.dy * GetFrameTime();
+    });
+
+    BeginDrawing();
+    Draw();
+    auto view2 = registry.view<const position, const size, const color>();
+    // use a callback
+    view2.each([](const auto &pos, const auto &size, const auto &color) 
+    {
+        DrawCircleV(Vector2{pos.x, pos.y}, size.radius, color.color);
+    });
+    EndDrawing();
+}
+
 int main()
 {
     //Window Config
@@ -35,7 +78,9 @@ int main()
 	InitWindow(screenWidth, screenHeight, windowTitle.c_str());
     //SetTargetFPS(60);
 
-    /*ecs.Init();
+    //InHouseECS 310
+
+    ecs.Init();
     ecs.RegisterComponent<Transform2DComponent>();
     ecs.RegisterComponent<ColorComponent>();
     ecs.RegisterComponent<VelocityComponent>();
@@ -97,14 +142,43 @@ int main()
             renderingSystem->Draw();
             Draw();
         EndDrawing();
-	}*/
+	}
+
+    //EnTT 290
+
+    /*
+    entt::registry registry;
+
+    for(auto i = 0; i < MAX_ENTITIES; ++i) 
+    {
+        const auto entity = registry.create();
+        registry.emplace<position>(entity, (float)GetRandomValue(0,screenWidth), (float)GetRandomValue(0,screenHeight));
+        registry.emplace<velocity>(entity, (float)GetRandomValue(-100,100), (float)GetRandomValue(-100,100));
+        registry.emplace<size>(entity, (float)GetRandomValue(0,100));
+        registry.emplace<color>(entity, Color                
+                {
+                    .r = ((unsigned char)GetRandomValue(0,255)),
+                    .g = ((unsigned char)GetRandomValue(0,255)),
+                    .b = ((unsigned char)GetRandomValue(0,255)),
+                    .a = 255
+                });
+    }
+
+    //Game Loop
+	while (!WindowShouldClose())
+	{
+        ECSUpdate(registry);
+        //Update();
+        //BeginDrawing();
+            //Draw();
+        //EndDrawing();
+	}
+    */
+
+    //NO ECS COMPARAISON TEST 360
 
 
-
-    //NO ECS COMPARAISON TEST
-
-
-
+    /*
     class Circle
     {
     public:
@@ -156,7 +230,7 @@ int main()
             }
             Draw();
         EndDrawing();
-	}
+	}*/
 
     //Close Game
 	CloseWindow();
