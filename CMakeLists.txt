@@ -26,6 +26,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(raylib)
 
+#[[
 FetchContent_Declare(
 	entt
 	GIT_REPOSITORY https://github.com/skypjack/entt.git
@@ -34,6 +35,7 @@ FetchContent_Declare(
 	GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(entt)
+]]#
 
 
 #Get all source file in /scr
@@ -45,4 +47,4 @@ add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_INCLUDE})
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
-target_link_libraries(${PROJECT_NAME} PRIVATE EnTT::EnTT)
+#target_link_libraries(${PROJECT_NAME} PRIVATE EnTT::EnTT)
