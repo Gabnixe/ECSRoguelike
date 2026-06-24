@@ -7,7 +7,7 @@
 
 #include "Debug.hpp"
 
-#include "core/ECS.hpp"
+#include "ecs/ECS.hpp"
 
 #include "systems/RenderingSystem.hpp"
 #include "systems/MoveSystem.hpp"
@@ -43,16 +43,18 @@ int main()
     auto renderingSystem = ecs.RegisterSystem<RenderingSystem>();
     {
         Signature signature;
-        signature.set(ecs.GetComponentType<ColorComponent>());
-        signature.set(ecs.GetComponentType<Transform2DComponent>());
+        signature
+        .set(ecs.GetComponentType<ColorComponent>())
+        .set(ecs.GetComponentType<Transform2DComponent>());
         ecs.SetSystemSignature<RenderingSystem>(signature);
     }
 
     auto moveSystem = ecs.RegisterSystem<MoveSystem>();
     {
         Signature signature;
-        signature.set(ecs.GetComponentType<VelocityComponent>());
-        signature.set(ecs.GetComponentType<Transform2DComponent>());
+        signature
+        .set(ecs.GetComponentType<VelocityComponent>())
+        .set(ecs.GetComponentType<Transform2DComponent>());
         ecs.SetSystemSignature<MoveSystem>(signature);
     }
 

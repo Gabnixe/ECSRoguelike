@@ -33,7 +33,7 @@ public:
 	void EntityDestroyed(Entity entity)
 	{
 		// Erase a destroyed entity from all system lists
-		// mEntities is a set so no check needed
+		// entities is a set so no check needed
 		for (auto const& pair : systems)
 		{
 			auto const& system = pair.second;

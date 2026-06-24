@@ -2,8 +2,7 @@
 
 #include "raylib.h"
 
-#include "../core/System.hpp"
-#include "../core/ECS.hpp"
+#include "../ecs/ECS.hpp"
 
 #include "../components/ColorComponent.hpp"
 #include "../components/Transform2DComponent.hpp"
